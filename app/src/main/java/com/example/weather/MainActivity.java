@@ -115,7 +115,10 @@ public class MainActivity extends AppCompatActivity {
                 params.put("lon",Longitude);
                 params.put("appid",APP_ID);
                 letsdoSomeNetworking(params);
+                @Override
+                public void onStatusChanged(String provider, int status, Bundle extras) {
 
+                }
 
 
 
