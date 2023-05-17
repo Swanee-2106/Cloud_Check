@@ -138,7 +138,6 @@ if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOC
                 return;
             }
         mLocationManager.requestLocationUpdates(Location_Provider, MIN_TIME, MIN_DISTANCE, mLocationListner);
-
         }
 
         }
