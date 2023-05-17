@@ -120,7 +120,6 @@ public class MainActivity extends AppCompatActivity {
                 }
                 @Override
                 public void onProviderEnabled(String provider) {
-
                 }
             }
         }
