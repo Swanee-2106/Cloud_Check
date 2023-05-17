@@ -105,5 +105,10 @@ public class MainActivity extends AppCompatActivity {
     private void getWeatherForCurrentLocation() {
         mLocationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
         mLocationListner = new LocationListener() {
+            @Override
+            public void onLocationChanged(Location location) {
+
+                String Latitude = String.valueOf(location.getLatitude());
+                String Longitude = String.valueOf(location.getLongitude());
 
         }
