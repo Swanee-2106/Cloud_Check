@@ -106,7 +106,4 @@ public class MainActivity extends AppCompatActivity {
         mLocationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
         mLocationListner = new LocationListener() {
 
-
         }
-
-
