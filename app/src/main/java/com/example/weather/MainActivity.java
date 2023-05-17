@@ -110,23 +110,27 @@ public class MainActivity extends AppCompatActivity {
 
                 String Latitude = String.valueOf(location.getLatitude());
                 String Longitude = String.valueOf(location.getLongitude());
-                RequestParams params =new RequestParams();
-                params.put("lat" ,Latitude);
-                params.put("lon",Longitude);
-                params.put("appid",APP_ID);
+                RequestParams params = new RequestParams();
+                params.put("lat", Latitude);
+                params.put("lon", Longitude);
+                params.put("appid", APP_ID);
                 letsdoSomeNetworking(params);
                 @Override
-                public void onStatusChanged(String provider, int status, Bundle extras) {
+                public void onStatusChanged (String provider,int status, Bundle extras){
                 }
                 @Override
-                public void onProviderEnabled(String provider) {
+                public void onProviderEnabled (String provider){
                 }
                 @Override
-                public void onProviderDisabled(String provider) {
+                public void onProviderDisabled (String provider){
                     //not able to get location
                 }
-            };
-if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            }
+
+            ;
+if(ActivityCompat.checkSelfPermission(this,Manifest.permission.ACCESS_FINE_LOCATION)!=PackageManager.PERMISSION_GRANTED &&ActivityCompat.checkSelfPermission(this,Manifest.permission.ACCESS_COARSE_LOCATION)!=PackageManager.PERMISSION_GRANTED)
+
+            {
                 // TODO: Consider calling
                 //    ActivityCompat#requestPermissions
                 // here to request the missing permissions, and then overriding
@@ -134,26 +138,23 @@ if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOC
                 //                                          int[] grantResults)
                 // to handle the case where the user grants the permission. See the documentation
                 // for ActivityCompat#requestPermissions for more details.
-                ActivityCompat.requestPermissions(this,new String[]{Manifest.permission.ACCESS_FINE_LOCATION},REQUEST_CODE);
+                ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, REQUEST_CODE);
                 return;
             }
-        mLocationManager.requestLocationUpdates(Location_Provider, MIN_TIME, MIN_DISTANCE, mLocationListner);
+        mLocationManager.requestLocationUpdates(Location_Provider,MIN_TIME,MIN_DISTANCE,mLocationListner);
         }
 
         @Override
-        public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        public void onRequestPermissionsResult ( int requestCode, @NonNull String[] permissions,
+        @NonNull int[] grantResults){
             super.onRequestPermissionsResult(requestCode, permissions, grantResults);
 
 
-            if(requestCode==REQUEST_CODE)
-            {
-                if(grantResults.length>0 && grantResults[0]==PackageManager.PERMISSION_GRANTED)
-                {
-                    Toast.makeText(MainActivity.this,"Locationget Succesffully",Toast.LENGTH_SHORT).show();
+            if (requestCode == REQUEST_CODE) {
+                if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    Toast.makeText(MainActivity.this, "Locationget Succesffully", Toast.LENGTH_SHORT).show();
                     getWeatherForCurrentLocation();
-                }
-                else
-                {
+                } else {
                     //user denied the permission
                 }
             }
@@ -161,23 +162,49 @@ if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOC
 
         }
 
-        private  void letsdoSomeNetworking(RequestParams params)
+        private void letsdoSomeNetworking (RequestParams params)
         {
             AsyncHttpClient client = new AsyncHttpClient();
-            client.get(WEATHER_URL,params,new JsonHttpResponseHandler()
-            {
+            client.get(WEATHER_URL, params, new JsonHttpResponseHandler() {
                 @Override
                 public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
 
-                    Toast.makeText(MainActivity.this,"Data Get Success",Toast.LENGTH_SHORT).show();
+                    Toast.makeText(MainActivity.this, "Data Get Success", Toast.LENGTH_SHORT).show();
 
-                    weatherData weatherD=weatherData.fromJson(response);
+                    weatherData weatherD = weatherData.fromJson(response);
                     updateUI(weatherD);
 
 
                     // super.onSuccess(statusCode, headers, response);
                 }
 
+                @Override
+                public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
+                    //super.onFailure(statusCode, headers, throwable, errorResponse);
+                }
+            });
 
+
+        }
+
+        private void updateUI (weatherData weather){
+
+
+            Temperature.setText(weather.getmTemperature());
+            NameofCity.setText(weather.getMcity());
+            weatherState.setText(weather.getmWeatherType());
+            int resourceID = getResources().getIdentifier(weather.getMicon(), "drawable", getPackageName());
+            mweatherIcon.setImageResource(resourceID);
+
+
+        }
+
+        @Override
+        protected void onPause () {
+            super.onPause();
+            if (mLocationManager != null) {
+                mLocationManager.removeUpdates(mLocationListner);
             }
         }
+    }
+}
