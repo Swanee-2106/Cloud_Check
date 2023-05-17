@@ -118,6 +118,8 @@ public class MainActivity extends AppCompatActivity {
                 @Override
                 public void onStatusChanged(String provider, int status, Bundle extras) {
                 }
-
+                @Override
+                public void onProviderEnabled(String provider) {
+                }
             }
         }
