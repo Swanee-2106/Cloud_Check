@@ -102,6 +102,6 @@ public class MainActivity extends AppCompatActivity {
         letsdoSomeNetworking(params);
 
     }
-    private void getWeatherForCurrentLocation() {
+    private void getWeatherForCurrentLocation()
 
 
