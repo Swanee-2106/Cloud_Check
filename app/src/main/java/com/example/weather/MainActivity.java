@@ -161,7 +161,25 @@ if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOC
 
         }
 
+        private  void letsdoSomeNetworking(RequestParams params)
+        {
+            AsyncHttpClient client = new AsyncHttpClient();
+            client.get(WEATHER_URL,params,new JsonHttpResponseHandler()
+            {
+                @Override
+                public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
+
+                    Toast.makeText(MainActivity.this,"Data Get Success",Toast.LENGTH_SHORT).show();
+
+                    weatherData weatherD=weatherData.fromJson(response);
+                    updateUI(weatherD);
 
 
-        }
+                    // super.onSuccess(statusCode, headers, response);
+                }
+
+
+
+
+            }
         }
