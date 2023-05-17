@@ -179,7 +179,5 @@ if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOC
                 }
 
 
-
-
             }
         }
