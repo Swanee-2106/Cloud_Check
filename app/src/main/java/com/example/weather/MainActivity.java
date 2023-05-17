@@ -110,5 +110,14 @@ public class MainActivity extends AppCompatActivity {
 
                 String Latitude = String.valueOf(location.getLatitude());
                 String Longitude = String.valueOf(location.getLongitude());
+                RequestParams params =new RequestParams();
+                params.put("lat" ,Latitude);
+                params.put("lon",Longitude);
+                params.put("appid",APP_ID);
+                letsdoSomeNetworking(params);
+                @Override
+                public void onStatusChanged(String provider, int status, Bundle extras) {
+                }
 
+            }
         }
